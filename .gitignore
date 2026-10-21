@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Gmail OAuth secrets — never commit these
+credentials.json
+token.json
+
+# Local config overrides
+config.local.yaml

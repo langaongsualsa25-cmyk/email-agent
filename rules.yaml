@@ -1,0 +1,64 @@
+# Rule-based triage configuration for email-agent.
+# Edit this file to tune how incoming mail gets categorized — no code changes needed.
+#
+# Each category is checked in the order listed below (top wins first).
+# A message matches a category if ANY of its keyword/sender patterns match.
+# Matching is case-insensitive and checks the subject, snippet, and From header.
+
+categories:
+  - name: urgent
+    label: "Agent/Urgent"
+    keywords:
+      - "urgent"
+      - "asap"
+      - "action required"
+      - "deadline today"
+      - "immediately"
+      - "emergency"
+    senders: []
+
+  - name: needs_reply
+    label: "Agent/Needs-Reply"
+    keywords:
+      - "please respond"
+      - "please reply"
+      - "can you confirm"
+      - "waiting for your"
+      - "let me know"
+      - "RSVP"
+      - "?"              # messages ending in a question mark often need a reply
+    senders: []
+
+  - name: fyi
+    label: "Agent/FYI"
+    keywords:
+      - "fyi"
+      - "for your information"
+      - "newsletter"
+      - "update"
+      - "no action needed"
+    senders: []
+
+  - name: promo
+    label: "Agent/Promo-Spam"
+    keywords:
+      - "unsubscribe"
+      - "% off"
+      - "sale"
+      - "limited time offer"
+      - "promo code"
+      - "discount"
+    senders: []
+
+# Fallback category applied when nothing above matches.
+default_category:
+  name: uncategorized
+  label: "Agent/Uncategorized"
+
+# Which categories should get an auto-drafted reply suggestion.
+draft_reply_categories:
+  - needs_reply
+  - urgent
+
+# Maximum number of unread messages to process per run (keeps API usage bounded).
+max_messages_per_run: 50
