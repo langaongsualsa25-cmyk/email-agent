@@ -6,6 +6,11 @@ venv/
 # Gmail OAuth secrets — never commit these
 credentials.json
 token.json
+client_secret*.json
+*token*.json
+*.pem
+.env
+.env.*
 
 # Local config overrides
 config.local.yaml

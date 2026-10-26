@@ -71,6 +71,12 @@ Scheduler, or a GitHub Actions scheduled workflow. Make sure
 `credentials.json` and a pre-authorized `token.json` are available
 wherever it runs (keep both out of version control).
 
+For GitHub Actions, store both files as encrypted repository secrets and
+write them to disk in a workflow step; never commit them. This repository
+is public, so Actions logs are public too: the run summary prints message
+subjects and senders, so redirect or suppress it there (for example
+`python -m email_agent.cli > /dev/null`).
+
 ## Running tests
 
 ```bash
