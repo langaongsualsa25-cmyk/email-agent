@@ -62,7 +62,10 @@ def get_credentials(
             flow = InstalledAppFlow.from_client_secrets_file(credentials_path, SCOPES)
             creds = flow.run_local_server(port=0)
 
-        with open(token_path, "w", encoding="utf-8") as token_file:
+        # The token holds a long-lived refresh token, so keep it owner-only.
+        fd = os.open(token_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        os.chmod(token_path, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as token_file:
             token_file.write(creds.to_json())
 
     return creds
